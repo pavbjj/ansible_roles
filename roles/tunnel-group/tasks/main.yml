@@ -1,0 +1,11 @@
+---
+- name: "Create tunnel group"
+  asa_config:
+    lines:
+      - tunnel-group {{peerip}} type ipsec-l2l
+
+- name: "Tunnel Attributes"
+  asa_config:
+    lines:
+      - ikev1 pre-shared-key {{preshared}}
+    parents: tunnel-group {{peerip}} ipsec-attributes

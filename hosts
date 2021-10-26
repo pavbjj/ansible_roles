@@ -1,0 +1,9 @@
+[firewalls_uk]
+asa.kuligowski.co.uk 
+
+[switches]
+#81.132.175.242
+192.168.1.253
+
+[firewalls:children]
+firewalls_uk

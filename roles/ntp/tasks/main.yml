@@ -1,0 +1,5 @@
+---
+- name: "Role task"
+  asa_config:
+    lines:
+    - ntp server 1.1.1.1

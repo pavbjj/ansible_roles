@@ -1,0 +1,17 @@
+---
+- name: Testing roles
+  hosts: firewalls
+  connection: local
+  gather_facts: no
+
+  roles:
+    - common
+
+
+- name: Set ntp server
+  hosts: firewalls
+  connection: local
+  gather_facts: no
+
+  roles:
+    - ntp

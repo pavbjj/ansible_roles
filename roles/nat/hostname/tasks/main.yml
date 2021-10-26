@@ -1,0 +1,6 @@
+---
+- name: "roles config"
+  asa_config:
+    lines:
+    - hostname {{outside_var}}
+

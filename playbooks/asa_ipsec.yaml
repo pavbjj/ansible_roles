@@ -1,0 +1,43 @@
+---
+- name: Backup Cisco ASA configuration to file
+  hosts: firewalls
+  gather_facts: no
+  tasks:
+    - name: "Check if crypto map already exists"
+      asa_command:
+        commands:
+          - "show run | inc crypto map outside_map1 5"
+      register: output
+
+    - name: "Debug"
+      debug:
+        msg: "{{ output.stdout_lines }}"
+      when: output.stdout[0] == ""
+
+    - name: Create ACL
+      asa_acl:
+        lines:
+          - access-list azure extended permit ip 192.168.1.0 255.255.255.0 10.9.11.0 255.255.255.0
+
+    - name: "Config tunnel group"
+      asa_config:
+        lines:
+        - tunnel-group 1.1.1.1 type ipsec-l2l
+
+    - name: "Tunnel Attributes"
+      asa_config:
+        lines:
+        - ikev1 pre-shared-key laura
+        parents: tunnel-group 1.1.1.1 ipsec-attributes
+
+
+    - name: "Crypto map"
+      asa_config:
+        lines:
+        - crypto map outside_map1 2 match address azure
+        - crypto map outside_map1 2 set peer 1.1.1.1
+        - crypto map outside_map1 2 set ikev1 transform-set ESP-AES-256-SHA ESP-AES-128-SHA
+        - crypto map outside_map1 2 set nat-t-disable
+        - crypto map outside_map1 2 set ikev2 ipsec-proposal AES256
+        - crypto map outside_map1 interface outside
+      when: output.stdout[0] == ""

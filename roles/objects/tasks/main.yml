@@ -1,0 +1,13 @@
+---
+
+- name: Create Azure network object
+  asa_config:
+    lines:
+      - subnet {{azure_subnet}}
+    parents: ['object network {{azure_object}}']
+
+- name: Create Inside network object
+  asa_config:
+    lines:
+      - subnet {{inside_subnet}}
+    parents: ['object network {{inside_object}}']

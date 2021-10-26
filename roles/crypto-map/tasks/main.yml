@@ -1,0 +1,23 @@
+---
+- name: "Check if crypto map already exists"
+  asa_command:
+    commands:
+      - "show run | include crypto map outside_map1 5"
+  register: output
+
+- name: Create ACL
+  asa_acl:
+    lines:
+      - access-list {{ipsec_acl}} extended permit ip {{inside_subnet}} {{azure_subnet}}
+
+
+- name: "Create crypto map"
+  asa_config:
+    lines:
+      - crypto map outside_map1 2 match address {{ipsec_acl}}
+      - crypto map outside_map1 2 set peer {{peerip}}
+      - crypto map outside_map1 2 set ikev1 transform-set ESP-AES-256-SHA 
+      - crypto map outside_map1 2 set nat-t-disable
+      - crypto map outside_map1 2 set ikev2 ipsec-proposal AES256
+      - crypto map outside_map1 interface outside
+  when: output.stdout[0] == ""

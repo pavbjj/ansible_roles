@@ -1,0 +1,5 @@
+---
+- name: Create NAT statement
+  asa_config:
+    lines:
+    - nat (Openwrt,outside) 1 source static {{inside_object}} {{inside_object}} destination static {{azure_object}} {{azure_object}} no-proxy-arp

@@ -1,0 +1,9 @@
+---
+- name: Configure hostname
+  hosts: firewalls
+  gather_facts: no
+  tasks:
+    - name: "Config hostname"
+      asa_config:
+        lines:
+        - hostname {{ hostname_test }}

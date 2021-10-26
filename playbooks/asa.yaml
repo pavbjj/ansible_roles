@@ -1,0 +1,29 @@
+---
+- name: Backup Cisco ASA configuration to file
+  hosts: asa.kuligowski.co.uk
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: "Show the ASA version"
+      asa_command:
+        commands:
+          - show run
+      register: output
+
+    - name: "Get time"
+      command: date +%Y%m%d
+      register: timestamp
+
+    - name: "Save Config"
+      copy:
+        content: "{{ output.stdout[0] }}"
+        dest: "/backups/asa_{{ inventory_hostname }}_{{ timestamp.stdout }}.txt"
+
+    - name: "Config tunnel group"
+      asa_config:
+        lines:
+        - tunnel-group 1.1.1.1 type ipsec-l2l
+      asa_config:
+        lines:
+        - default-group-policy GroupPolicy1
+        parents: tunnel-group 1.1.1.1 ipsec-attributes

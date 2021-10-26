@@ -1,0 +1,15 @@
+---
+- name: Make sure YAML files are correct
+  hosts: localhost
+  command: sh /etc/ansible/roles/linter.sh
+
+- name: Configure IPSec
+  hosts: firewalls
+  connection: local
+  gather_facts: no
+
+  roles:
+    - objects
+    - tunnel-group
+    - crypto-map 
+    - nat

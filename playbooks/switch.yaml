@@ -1,0 +1,21 @@
+---
+- name: Configure hostname
+  hosts: switches
+  gather_facts: no
+  tasks:
+    
+    - name: "Show command"
+      cisco.ios.ios_command:
+        commands: show ip int b
+      register: output
+
+    - debug: var=output.stdout_lines
+
+    - name: Get facts
+      ios_facts:
+        gather_subset:
+        - interfaces
+    - set_fact:
+        int: "{{ ansible_net_interfaces }}"
+    - debug: var=int['mtu']
+#      with_items: "{{ int }}"

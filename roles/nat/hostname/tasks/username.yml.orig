@@ -1,0 +1,12 @@
+---
+- name: "roles config"
+  asa_config:
+    lines:
+    - hostname {{outside_var}}
+
+
+- name: "roles tagged"
+  asa_config:
+    lines:
+    - hostname tagged
+  tags: eka
