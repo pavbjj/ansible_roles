@@ -1,6 +1,6 @@
 ---
 ansible_ssh_user: cisco
-ansible_password: Croxden.9l0W5rs
+ansible_password: Password1234
 ansible_network_os: cisco.ios.ios
 ansible_connection: ansible.netcommon.network_cli
 #ansible_port: 222
