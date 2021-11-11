@@ -3,7 +3,7 @@
   hosts: localhost
   command: sh /etc/ansible/roles/linter.sh
 
-- name: Configure IPSec tunnel
+- name: Configure IPSec tunnel VPN
   hosts: firewalls
   connection: local
   gather_facts: no
