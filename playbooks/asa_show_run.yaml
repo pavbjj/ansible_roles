@@ -1,0 +1,13 @@
+---
+- name: configure asa5506x
+  hosts: asa.kuligowski.co.uk
+  connection: local
+#  become: yes
+  gather_facts: no
+  tasks:
+    - name: "Show the ASA version"
+      asa_command:
+        commands:
+          - show version
+      register: output
+    - debug: var=output.stdout_lines

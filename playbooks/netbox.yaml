@@ -1,0 +1,20 @@
+---
+- name: "Adding device to netbox inventory"
+  connection: local
+  hosts: localhost
+  gather_facts: False
+
+  tasks:
+    - name: Create device within Netbox with only required information
+      netbox_device:
+        netbox_url: https://netbox.kuligowski.co.uk
+        netbox_token: 6588713b7a7bbd3a24c9e445e9e9f0e491e75932
+        data:
+          name: {{ item }}
+          device_type: 5506-X
+          device_role: firewalls
+          site: kuligowski
+        state: present
+      with_items:
+      - chuj
+      - chuj2  

@@ -1,0 +1,21 @@
+---
+- name: Backup Cisco ASA configuration to file
+  hosts: asa.kuligowski.co.uk
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: "Show the ASA version"
+      asa_command:
+        commands:
+          - show run
+      register: output
+
+    - name: "Get time"
+      command: date +%Y%m%d
+      register: timestamp
+
+    - name: "Save Config"
+      copy:
+        content: "{{ output.stdout[0] }}"
+        dest: "/backups/asa_{{ inventory_hostname }}_{{ timestamp.stdout }}.txt"
+

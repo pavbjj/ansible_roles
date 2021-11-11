@@ -1,0 +1,17 @@
+---
+- hosts: 81.132.175.242
+  connection: network_cli
+  gather_facts: no
+  become: yes
+
+
+  tasks: 
+    - name: Create object for SALES network
+      asa_config:
+        lines:
+        - description Wifi router      
+        parents: [interface Gigabit 1/2]
+      register: interface
+    - name: Show changes
+      debug:
+        var: interface        
