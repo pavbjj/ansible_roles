@@ -7,3 +7,7 @@ asa.kuligowski.co.uk
 
 [firewalls:children]
 firewalls_uk
+[linux_vm]
+127.0.0.1
+[linux_vm]
+127.0.0.1

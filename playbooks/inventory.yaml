@@ -1,8 +1,0 @@
----
-plugin: netbox.netbox.nb_inventory
-api_endpoint: https://netbox.kuligowski.co.uk
-token: 6588713b7a7bbd3a24c9e445e9e9f0e491e75932
-validate_certs: True
-config_context: False
-group_by:
-  - device_roles

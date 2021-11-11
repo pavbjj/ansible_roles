@@ -1,5 +1,5 @@
 ---
-ansible_ssh_user: cisco
+#ansible_ssh_user: cisco
 ansible_network_os: asa
 ansible_connection: local
 outside_var: asa01-croxdengardens
