@@ -1,2 +1,2 @@
-Testing repo showing ansible roles.
+Testing repo ansible roles.
 
